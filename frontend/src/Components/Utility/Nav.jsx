@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   const [showMobileMenu, setShowMenu] = useState(false);
   return (
-    <div className="bg-green-200 p-2 drop-shadow-md relative ">
+    <div className="relative p-2 bg-green-200 drop-shadow-md ">
       {/* mobilemenu sidebar */}
       <div
-        className={`w-3/4  h-[100vh] bg-green-200  md:hidden  absolute top-14 right-0 transition-transform  duration-500 ${
+        className={`w-3/4 h-[100vh] bg-green-200 md:hidden absolute top-14 right-0 transition-transform duration-500 ${
           showMobileMenu ? "" : "translate-x-full"
         }`}
       >
         <div className="absolute right-2 top-2">
           <TfiClose
-            className="text-green-700 text-2xl cursor-pointer hover:scale-90 transition-all"
+            className="text-2xl text-green-700 transition-all cursor-pointer hover:scale-90"
             onClick={() => setShowMenu(!showMobileMenu)}
           />
         </div>
@@ -38,19 +38,19 @@ const Nav = () => {
           alt="ABUSM"
           className="w-10"
         />
-        <p className="text-green-700 font-semibold uppercase">Stock You Need</p>
+        <p className="font-semibold text-green-700 uppercase">Stock You Need</p>
 
         {/* menu for mobile devices */}
         <div className="md:hidden">
           {!showMobileMenu ? (
             <BsMenuButtonWide
-              className="text-green-700 text-2xl cursor-pointer active:scale-95 transition-all"
+              className="text-2xl text-green-700 transition-all cursor-pointer active:scale-95"
               onClick={() => setShowMenu(!showMobileMenu)}
             />
           ) : (
             <BsMenuButtonWideFill
               onClick={() => setShowMenu(!showMobileMenu)}
-              className="text-green-700 text-2xl cursor-pointer active:scale-95 transition-all"
+              className="text-2xl text-green-700 transition-all cursor-pointer active:scale-95"
             />
           )}
         </div>

@@ -1,7 +1,11 @@
-import React from "react";
-
+import Reacts from "react";
+import SearchBar from "./Utility/SearchBar";
 const Home = () => {
-  return <div></div>;
+  return (
+    <div>
+      <SearchBar />
+    </div>
+  );
 };
 
 export default Home;
