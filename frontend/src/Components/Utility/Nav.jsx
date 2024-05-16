@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   const [showMobileMenu, setShowMenu] = useState(false);
   return (
-    <div className="relative p-2 bg-green-200 drop-shadow-md ">
+    <div className="relative z-10 w-full p-2 bg-green-200 md:text-xl lg:text-2xl drop-shadow-md">
       {/* mobilemenu sidebar */}
-      <div
+      {/* <div
         className={`w-3/4 h-[100vh] bg-green-200 md:hidden absolute top-14 right-0 transition-transform duration-500 ${
           showMobileMenu ? "" : "translate-x-full"
         }`}
@@ -31,14 +31,16 @@ const Nav = () => {
             <Link to="">Portfolio</Link>
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-between max-w-[1440px] mx-auto">
+      </div> */}
+      <div className="flex items-center justify-between min-w-min max-w-[1440px] mx-auto">
         <img
           src="https://cdn-icons-png.freepik.com/512/9226/9226554.png"
           alt="ABUSM"
           className="w-10"
         />
-        <p className="font-semibold text-green-700 uppercase">Stock You Need</p>
+        <p className="font-semibold text-green-700 uppercase">
+          Know Your Stock
+        </p>
 
         {/* menu for mobile devices */}
         <div className="md:hidden">

@@ -6,7 +6,7 @@ import SingleStocketails from "./Components/SingleStocketails";
 import Nav from "./Components/Utility/Nav";
 function App() {
   return (
-    <div className="mx-auto bg-white/20 ">
+    <div className="mx-auto overflow-x-hidden bg-white/20 ">
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />

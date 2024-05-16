@@ -13,11 +13,12 @@ const SearchBar = () => {
       return; // Exit the function early
     }
 
-    const result = data.find((el) =>
+    const result = data.filter((el) =>
       el?.symbol.trim().toLowerCase().includes(value.trim().toLowerCase())
     );
 
     setstock(() => (result ? result : "no match"));
+    console.log(stock);
   };
   return (
     <div className="">
@@ -29,15 +30,21 @@ const SearchBar = () => {
             className="w-full text-lg focus:outline-none"
             onChange={changeHandler}
           />
-          <IoSearch className="text-2xl cursor-pointer active:text-orange-600" />
+          <IoSearch className="text-2xl cursor-pointer active:text-orange-600 md:p-4" />
         </div>
-        <div className="p-2 md:mx-auto md:w-4/6 md:px-4">
-          <Link
-            className="cursor-pointer text-slate-500 hover:text-black active:text-green-500"
-            to={`/${stock.symbol}/stock_details`}
-          >
-            {stock.name}
-          </Link>
+        <div className=" md:mx-auto md:w-4/6">
+          {stock[0]
+            ? stock.slice(0, 3).map((stock) => (
+                <div>
+                  <Link
+                    className="block p-2 cursor-pointer text-slate-500 hover:text-black hover:bg-green-200 active:text-green-500"
+                    to={`/${stock.symbol}/stock_details`}
+                  >
+                    {stock.symbol}
+                  </Link>
+                </div>
+              ))
+            : ""}
         </div>
       </div>
     </div>

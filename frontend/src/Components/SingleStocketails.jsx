@@ -10,28 +10,59 @@ import {
 } from "react-icons/md"; //down
 import { FaRupeeSign } from "react-icons/fa"; //rupee
 
-const SingleStocketails = () => {
-  const { id } = useParams();
-  const stock = data.find((el) => el.symbol === id);
+const SingleStocketails = (props) => {
+  const { id } = useParams() || "";
+  const stock = props?.stock || data.find((el) => el.symbol === id);
 
   return (
-    <div className="p-2 m-2 border-2 border-green-200">
-      <div>
-        <div className="flex justify-between px-2">
-          <p className="font-semibold capitalize text-green-950">
-            {stock.name}
-          </p>
-          <p className="flex items-center text-green-500">
-            <FaRupeeSign /> <span className="text-green-800">{stock.LTP}</span>
-          </p>
-        </div>{" "}
-        <p className="flex px-2 text-green-700 capitalize">
-          <span className="text-orange-500">
-            <RiStockFill />
-            PE :{" "}
-          </span>
-          {stock.PEratio}
+    <div className="p-2 m-4 mt-4 space-y-2 bg-green-100 border-2 border-green-100 rounded drop-shadow-md md:w-3/4 md:mx-auto md:mt-6 lg:w-[600px] lg:p-4 md:text-lg ">
+      {/* name & price */}
+      <div className="flex items-center justify-between">
+        <p>
+          {stock.name}
+
+          {/* (<span className="text-sm text-green-700">{stock.symbol}</span>) */}
         </p>
+        <div className="flex items-center font-semibold text-green-700">
+          <FaRupeeSign />
+          <span className="">{stock.LTP}</span>
+        </div>
+      </div>
+
+      {/* pe & weightage */}
+      <div className="flex items-center justify-between ">
+        <div className="flex items-center space-x-2">
+          <AiOutlineStock className="text-green-700" />
+          <p>PE: {Math.round(stock.PEratio)}</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <MdBarChart className="text-green-700" />
+          <p>{stock.weightage}</p>
+        </div>
+      </div>
+      {/* 52high&low */}
+      <div className="flex items-center justify-between ">
+        <div className="flex items-center space-x-2">
+          <MdKeyboardDoubleArrowDown className="text-red-500 animate-bounce" />
+          <p className="px-2 bg-red-200 rounded ">{Math.floor(stock.low)}</p>
+        </div>
+        <div>
+          <p className="text-slate-700">52 week Low/High</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <MdKeyboardDoubleArrowUp className="text-green-800 animate-bounce" />
+          <p className="px-2 bg-green-200 rounded ">
+            {" "}
+            {Math.floor(stock.high)}
+          </p>
+        </div>
+      </div>
+
+      {/* option  */}
+      <div className="flex items-center justify-center m-2">
+        <button className="p-1 text-green-100 bg-green-600 rounded">
+          Add to Watchlist
+        </button>
       </div>
     </div>
   );
