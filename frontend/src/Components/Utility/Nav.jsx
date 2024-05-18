@@ -9,7 +9,7 @@ const Nav = () => {
   return (
     <div className="relative z-10 w-full p-2 bg-green-200 md:text-xl lg:text-2xl drop-shadow-md">
       {/* mobilemenu sidebar */}
-      {/* <div
+      <div
         className={`w-3/4 h-[100vh] bg-green-200 md:hidden absolute top-14 right-0 transition-transform duration-500 ${
           showMobileMenu ? "" : "translate-x-full"
         }`}
@@ -31,13 +31,15 @@ const Nav = () => {
             <Link to="">Portfolio</Link>
           </div>
         </div>
-      </div> */}
+      </div>
       <div className="flex items-center justify-between min-w-min max-w-[1440px] mx-auto">
-        <img
-          src="https://cdn-icons-png.freepik.com/512/9226/9226554.png"
-          alt="ABUSM"
-          className="w-10"
-        />
+        <Link to="/">
+          <img
+            src="https://cdn-icons-png.freepik.com/512/9226/9226554.png"
+            alt="ABUSM"
+            className="w-10"
+          />
+        </Link>
         <p className="font-semibold text-green-700 uppercase">
           Know Your Stock
         </p>
