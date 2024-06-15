@@ -14,7 +14,6 @@ import { FaRupeeSign } from "react-icons/fa"; //rupee
 const SingleStocketails = (props) => {
   const { id } = useParams() || "";
   const stock = props?.stock || data.find((el) => el.symbol === id);
-  console.log(stock.sector);
 
   return (
     <div>

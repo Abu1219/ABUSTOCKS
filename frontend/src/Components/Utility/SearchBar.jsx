@@ -14,7 +14,7 @@ const SearchBar = () => {
     }
 
     const result = data.filter((el) =>
-      el?.symbol.trim().toLowerCase().includes(value.trim().toLowerCase())
+      el?.name.trim().toLowerCase().includes(value.trim().toLowerCase())
     );
 
     setstock(() => (result ? result : "no match"));

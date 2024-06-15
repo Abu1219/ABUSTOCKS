@@ -2,9 +2,15 @@ import Reacts, { useState } from "react";
 import SearchBar from "./Utility/SearchBar";
 import data from "./stocks.json";
 import { useNavigate } from "react-router-dom";
+import Filter from "./Utility/Filter";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [filterBy, setFilterBy] = useState("");
+
+  const fillterHandler = (e) => {
+    setFilterBy(e);
+  };
   return (
     <div className="relative h-[100vh]">
       <SearchBar />
@@ -20,6 +26,9 @@ const Home = () => {
             <option>all</option>
           </select>
         </div> */}
+        <div>
+          <Filter filter={fillterHandler} />
+        </div>
         <table className="w-full mx-auto text-sm border border-spacing-2 md:w-4/6 md:px-4">
           <thead className="">
             <tr className=" md:text-lg bg-slate-200">
@@ -41,29 +50,59 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((stock) => (
-              <tr
-                key={stock.name}
-                className="text-green-800 transition-all duration-150 cursor-pointer tab md:text-lg hover:bg-green-600 hover:text-white group"
-                onClick={() => {
-                  navigate(`/${stock.symbol}/stock_details`);
-                }}
-              >
-                <td className="font-normal text-left md:p-2 ">{stock.name}</td>
-                <td className="font-normal text-center md:p-2">
-                  {Math.floor(stock.LTP)}
-                </td>
-                <td className="font-normal text-center md:p-2">
-                  {Math.floor(stock.low)}
-                </td>
-                <td className="font-normal text-center md:p-2">
-                  {Math.floor(stock.high)}
-                </td>
-                <td className="font-normal text-center md:p-2">
-                  {Math.floor(stock.PEratio)}
-                </td>
-              </tr>
-            ))}
+            {filterBy === ""
+              ? data.map((stock) => (
+                  <tr
+                    key={stock.name}
+                    className="text-green-800 transition-all duration-150 cursor-pointer tab md:text-lg hover:bg-green-600 hover:text-white group"
+                    onClick={() => {
+                      navigate(`/${stock.symbol}/stock_details`);
+                    }}
+                  >
+                    <td className="font-normal text-left md:p-2 ">
+                      {stock.name}
+                    </td>
+                    <td className="font-semibold text-center md:p-2">
+                      {Math.floor(stock.LTP)}
+                    </td>
+                    <td className="font-normal text-center md:p-2">
+                      {Math.floor(stock.low)}
+                    </td>
+                    <td className="font-normal text-center md:p-2">
+                      {Math.floor(stock.high)}
+                    </td>
+                    <td className="font-normal text-center md:p-2">
+                      {Math.floor(stock.PEratio)}
+                    </td>
+                  </tr>
+                ))
+              : data
+                  .filter((stock) => stock.sector === filterBy)
+                  .map((stock) => (
+                    <tr
+                      key={stock.name}
+                      className="text-green-800 transition-all duration-150 cursor-pointer tab md:text-lg hover:bg-green-600 hover:text-white group"
+                      onClick={() => {
+                        navigate(`/${stock.symbol}/stock_details`);
+                      }}
+                    >
+                      <td className="font-normal text-left md:p-2 ">
+                        {stock.name}
+                      </td>
+                      <td className="font-normal text-center md:p-2">
+                        {Math.floor(stock.LTP)}
+                      </td>
+                      <td className="font-normal text-center md:p-2">
+                        {Math.floor(stock.low)}
+                      </td>
+                      <td className="font-normal text-center md:p-2">
+                        {Math.floor(stock.high)}
+                      </td>
+                      <td className="font-normal text-center md:p-2">
+                        {Math.floor(stock.PEratio)}
+                      </td>
+                    </tr>
+                  ))}
           </tbody>
         </table>
       </div>

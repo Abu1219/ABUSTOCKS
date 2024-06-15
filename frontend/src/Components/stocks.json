@@ -236,18 +236,7 @@
     "high": 2837.6,
     "low": 1807.6
   },
-  {
-    "symbol": "HINDUNILVR",
-    "name": "Hindustan Unilever",
-    "sector": "fmg",
 
-    "LTP": 2323.3,
-    "changePercent": "-1.12%",
-    "weightage": "23.473%",
-    "PEratio": 53.74,
-    "high": 2769.65,
-    "low": 2172.05
-  },
   {
     "symbol": "NESTLEIND",
     "name": "Nestle",
@@ -531,17 +520,7 @@
     "high": 464.2,
     "low": 201.8
   },
-  {
-    "symbol": "BPCL",
-    "name": "Bharat Petroleum",
-    "sector": "oil",
-    "LTP": 625.05,
-    "changePercent": "3.15%",
-    "weightage": "3.232%",
-    "PEratio": 4.86,
-    "high": 687.95,
-    "low": 331.45
-  },
+
   {
     "symbol": "ADANIENSOL",
     "name": "Adani Energy Solutions",
@@ -703,7 +682,7 @@
   {
     "symbol": "SUNPHARMA",
     "name": "Sun Pharmaceutical",
-    "sector": "it,pharma",
+    "sector": "pharma",
     "LTP": 1527.4,
     "changePercent": "-1.16%",
     "weightage": "2.074%",
@@ -755,28 +734,7 @@
     "high": 3350.0,
     "low": 1857.75
   },
-  {
-    "symbol": "NTPC",
-    "name": "NTPC",
-    "sector": "power",
-    "LTP": 361.35,
-    "changePercent": "1.56%",
-    "weightage": "1.930%",
-    "PEratio": 17.7,
-    "high": 380.4,
-    "low": 171.85
-  },
-  {
-    "symbol": "ONGC",
-    "name": "Oil & Natural Gas Corporation",
-    "sector": "oil",
-    "LTP": 273.45,
-    "changePercent": "0.20%",
-    "weightage": "1.922%",
-    "PEratio": 7.16,
-    "high": 292.95,
-    "low": 150.05
-  },
+
   {
     "symbol": "KOTAKBANK",
     "name": "Kotak Bank",
@@ -810,17 +768,7 @@
     "high": 1424.95,
     "low": 659.5
   },
-  {
-    "symbol": "POWERGRID",
-    "name": "Power Grid Corporation of India",
-    "sector": "power",
-    "LTP": 314.85,
-    "changePercent": "1.81%",
-    "weightage": "1.609%",
-    "PEratio": 18.29,
-    "high": 317.25,
-    "low": 172.5
-  },
+
   {
     "symbol": "M&M",
     "name": "Mahindra & Mahindra",
@@ -887,17 +835,7 @@
     "high": 1741.0,
     "low": 1397.05
   },
-  {
-    "symbol": "NESTLEIND",
-    "name": "Nestle",
-    "sector": "fmg",
-    "LTP": 2465.0,
-    "changePercent": "-0.90%",
-    "weightage": "1.341%",
-    "PEratio": 75.16,
-    "high": 2769.3,
-    "low": 2127.5
-  },
+
   {
     "symbol": "WIPRO",
     "name": "Wipro",
