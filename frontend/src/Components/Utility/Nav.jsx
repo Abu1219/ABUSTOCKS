@@ -20,15 +20,17 @@ const Nav = () => {
             onClick={() => setShowMenu(!showMobileMenu)}
           />
         </div>
-        <div className="flex-col items-center w-full">
+        <div className="flex-col items-center w-full p-2">
           <div>
             <Link to="">Home</Link>
           </div>
-          <div>
+          {/* <div>
             <Link to="">Watchlist</Link>
-          </div>
-          <div>
-            <Link to="">Portfolio</Link>
+          </div> */}
+          <div className="">
+            <Link to="/Login" className="">
+              Login
+            </Link>
           </div>
         </div>
       </div>
@@ -62,8 +64,8 @@ const Nav = () => {
         <div className="max-md:hidden">
           <ul className="flex items-center justify-between space-x-8">
             <Link to="">Home</Link>
-            <Link to="">Watchlist</Link>
-            <Link to="">Portfolio</Link>
+            {/* <Link to="">Watchlist</Link> */}
+            <Link to="/Login">Login</Link>
           </ul>
         </div>
       </div>
