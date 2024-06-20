@@ -57,7 +57,7 @@ const Login = () => {
               />
             )}
           </div>
-          <p className="mt-2 text-center text-green-400 md:text-2xl md:mt-4 ">
+          <p className="mt-2 text-center text-green-400 md:text-2xl md:mt-4 hover:underline ">
             Forget password ?
           </p>
         </form>

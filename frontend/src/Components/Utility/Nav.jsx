@@ -22,13 +22,19 @@ const Nav = () => {
         </div>
         <div className="flex-col items-center w-full p-2">
           <div>
-            <Link to="">Home</Link>
+            <Link to="" onClick={() => setShowMenu(!showMobileMenu)}>
+              Home
+            </Link>
           </div>
           {/* <div>
             <Link to="">Watchlist</Link>
           </div> */}
           <div className="">
-            <Link to="/Login" className="">
+            <Link
+              to="/Login"
+              onClick={() => setShowMenu(!showMobileMenu)}
+              className=""
+            >
               Login
             </Link>
           </div>
