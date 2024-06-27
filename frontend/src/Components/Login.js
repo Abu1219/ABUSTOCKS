@@ -1,23 +1,54 @@
 import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setshowPassword] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [error, setError] = useState(null);
   const [data, setData] = useState({
-    username: "",
+    userName: "",
     password: "",
   });
 
   const navigate = useNavigate();
   const changeHandler = (e) => {
+    setError(null);
+    setStatus(null);
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(data);
-    setData({ username: "", password: "" });
+    setStatus("Login ...");
+    //check invalid data
+    if (!data.userName || !data.password) {
+      return setError("Invalid Fields");
+    }
+
+    //connect to api
+    try {
+      const res = await axios.post("http://localhost:5000/api/login", data);
+      const status = res.status;
+      if (status === 200) {
+        setStatus(res.data.message);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        setError(res.data.message);
+      }
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    }
+
+    setData({ userName: "", password: "" });
   };
   return (
     <div className="w-[100vw] h-[100vh] bg-green-500 flex  justify-center items-center -mt-4 cursor-pointer">
@@ -25,12 +56,19 @@ const Login = () => {
         <p className="text-2xl font-semibold text-green-800 md:text-4xl">
           Login
         </p>
+        <p
+          className={` flex items-center justify-center ${
+            error ? "text-red-500" : "text-green-600 animate-pulse"
+          } md:text-2xl`}
+        >
+          {(error && error) || (status && status)}
+        </p>
         <form className="mt-4 text-green-600 ">
           <input
             className="w-[90%] mx-2 border-b-2 border-green-500 text-lg md:text-2xl p-1 my-2 outline-none  "
             placeholder="Username"
-            name="username"
-            value={data.username}
+            name="userName"
+            value={data.userName}
             onChange={changeHandler}
           />
           <div className="flex items-center border-b-2 w-[90%] border-green-500 justify-between">

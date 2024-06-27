@@ -11,6 +11,7 @@ const SimilarStock = ({ sector, stockName }) => {
       <div className="flex flex-col p-2 m-2 space-y-2 rounded md:mx-auto md:w-3/4 bg-slate-100 md:p-4 drop-shadow-md ">
         {data
           .filter((el) => el.sector === sector && el.name !== stockName)
+
           .map((stock) => (
             <Link
               key={stock.name}
