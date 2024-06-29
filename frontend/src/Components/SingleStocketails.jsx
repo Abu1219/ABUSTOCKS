@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import data from "./stocks.json";
 import { AiOutlineStock } from "react-icons/ai";
-import { RiStockFill } from "react-icons/ri";
+// import { RiStockFill } from "react-icons/ri";
 import SimilarStock from "./SimilarStock";
 import {
   MdKeyboardDoubleArrowDown,
@@ -10,11 +10,26 @@ import {
   MdBarChart,
 } from "react-icons/md"; //down
 import { FaRupeeSign } from "react-icons/fa"; //rupee
+import { useSelector, useDispatch } from "react-redux";
+import { addToWatchlist } from "../Redux/UserSlice";
 
 const SingleStocketails = (props) => {
   const { id } = useParams() || "";
   const stock = props?.stock || data.find((el) => el.symbol === id);
+  const { isLoggedIn, watchList } = useSelector((state) => state.user) || false;
+  const dispatch = useDispatch();
 
+  const addTowatchListHandler = (e) => {
+    e.preventDefault();
+    const symbol = stock.symbol;
+    if (watchList.some((el) => el.symbol === symbol)) {
+      alert("Stock already  Added");
+      return;
+    }
+
+    dispatch(addToWatchlist(stock));
+    alert("Added");
+  };
   return (
     <div>
       <div className="p-2 m-4 mt-4 space-y-2 bg-green-100 border-2 border-green-100 rounded drop-shadow-md md:w-3/4 md:mx-auto md:mt-6 lg:w-[600px] lg:p-4 md:text-lg ">
@@ -30,7 +45,6 @@ const SingleStocketails = (props) => {
             <span className="">{stock.LTP}</span>
           </div>
         </div>
-
         {/* pe & weightage */}
         <div className="flex items-center justify-between ">
           <div className="flex items-center space-x-2">
@@ -59,12 +73,16 @@ const SingleStocketails = (props) => {
             </p>
           </div>
         </div>
-
         {/* option  */}
         <div className="flex items-center justify-center m-2">
-          <button className="p-1 text-green-100 bg-green-600 rounded">
-            Add to Watchlist
-          </button>
+          {isLoggedIn && (
+            <button
+              className="p-1 text-green-100 bg-green-600 rounded"
+              onClick={addTowatchListHandler}
+            >
+              Add to Watchlist
+            </button>
+          )}
         </div>
       </div>
       <div>

@@ -3,11 +3,12 @@ import SearchBar from "./Utility/SearchBar";
 import data from "./stocks.json";
 import { useNavigate } from "react-router-dom";
 import Filter from "./Utility/Filter";
+import { UseSelector, useSelector } from "react-redux";
 
 const Home = () => {
   const navigate = useNavigate();
   const [filterBy, setFilterBy] = useState("");
-
+  const loginUser = useSelector((state) => state.user);
   const fillterHandler = (e) => {
     setFilterBy(e);
   };

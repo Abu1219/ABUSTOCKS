@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { BsMenuButtonWide, BsMenuButtonWideFill } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Redux/UserSlice";
 
 import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [showMobileMenu, setShowMenu] = useState(false);
+
+  const { isLoggedIn, userName } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <div className="relative z-10 w-full p-2 bg-green-200 md:text-xl lg:text-2xl drop-shadow-md">
       {/* mobilemenu sidebar */}
@@ -26,17 +35,33 @@ const Nav = () => {
               Home
             </Link>
           </div>
-          {/* <div>
-            <Link to="">Watchlist</Link>
-          </div> */}
+          {isLoggedIn && (
+            <div>
+              <Link to="/Watchlist">Watchlist</Link>
+            </div>
+          )}
           <div className="">
-            <Link
-              to="/Login"
-              onClick={() => setShowMenu(!showMobileMenu)}
-              className=""
-            >
-              Login
-            </Link>
+            {!isLoggedIn && (
+              <Link
+                to="/Login"
+                onClick={() => setShowMenu(!showMobileMenu)}
+                className=""
+              >
+                Login
+              </Link>
+            )}
+            {isLoggedIn && (
+              <Link
+                to="/"
+                onClick={() => {
+                  setShowMenu(!showMobileMenu);
+                  dispatch(logout());
+                }}
+                className=""
+              >
+                Logout
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -70,8 +95,18 @@ const Nav = () => {
         <div className="max-md:hidden">
           <ul className="flex items-center justify-between space-x-8">
             <Link to="">Home</Link>
-            {/* <Link to="">Watchlist</Link> */}
-            <Link to="/Login">Login</Link>
+            {isLoggedIn && (
+              <div>
+                <Link to="/Watchlist">Watchlist</Link>
+              </div>
+            )}
+            {!isLoggedIn ? (
+              <Link to="/Login">Login</Link>
+            ) : (
+              <Link to="/" onClick={logoutHandler}>
+                Logout
+              </Link>
+            )}
           </ul>
         </div>
       </div>

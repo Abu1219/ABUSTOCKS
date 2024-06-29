@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { login } from "../Redux/UserSlice";
+import { UseDispatch, useDispatch } from "react-redux";
 
 const Login = () => {
   const [showPassword, setshowPassword] = useState(false);
@@ -11,7 +13,7 @@ const Login = () => {
     userName: "",
     password: "",
   });
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const changeHandler = (e) => {
     setError(null);
@@ -33,6 +35,8 @@ const Login = () => {
       const status = res.status;
       if (status === 200) {
         setStatus(res.data.message);
+        const userData = res.data.data;
+        dispatch(login(userData));
 
         setTimeout(() => {
           navigate("/");

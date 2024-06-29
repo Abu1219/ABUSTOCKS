@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
   if (findUser.password !== password) {
     return res.status(401).send({ message: "Password is incorrect" });
   }
-  res.status(200).send({ message: "Loggedin Sussecs" });
+  res.status(200).send({ message: "Loggedin Sussecs", data: findUser });
 });
 
 export default router;
