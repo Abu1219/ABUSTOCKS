@@ -1,26 +1,24 @@
 import express from "express";
-import mongoose from "mongoose";
+import userRouter from "./routes/userRouter.js";
 import cors from "cors";
-import router from "./routes/Route.js";
+import cookieParser from "cookie-parser";
+import { notFound, errorHandler } from "./middleware/error.middleware.js";
+import connectDB from "./config/db.js";
+
+const port = process.env.PORT;
 
 const app = express();
+
+connectDB();
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
-// route
-app.use("/api", router);
+// app.use(protect);
+app.get("/", (req, res) => res.send(`${port} is running`));
 
-const PORT = process.env.PORT;
-const mongodbUrl = process.env.mongodbUrl;
+app.listen(port, () => console.log("Server is running"));
+app.use(cookieParser());
+app.use("/api/users", userRouter);
 
-app.get("/", (req, res) => {
-  res.status(200).json("Server Running");
-});
-app.listen(PORT, () => console.log("Server is Running"));
-
-try {
-  mongoose.connect(mongodbUrl);
-  console.log("DB CONNECTED");
-} catch (error) {
-  console.log(error);
-}
+app.use(notFound);
+app.use(errorHandler);

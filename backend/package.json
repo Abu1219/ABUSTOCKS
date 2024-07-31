@@ -2,17 +2,20 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
+  "main": "server.js",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "start": "node Server.js",
-    "dev": "node --watch --env-file=.env  Server.js"
+    "server": "node --watch --env-file=.env server"
   },
-  "author": "",
+  "author": "Abdullah",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mongoose": "^8.4.0"
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1"
   }
 }
