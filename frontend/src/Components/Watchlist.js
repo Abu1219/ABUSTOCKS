@@ -1,21 +1,21 @@
 "use strict";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removefromWatchlist } from ".././Redux/UserSlice";
+// import { useSelector, useDispatch } from "react-redux";
+// import { removefromWatchlist } from ".././Redux/UserSlice";
 
 const Watchlist = () => {
-  const stock = useSelector((state) => state.user.watchList);
-  console.log(stock);
-  const dispatch = useDispatch();
-  const removeHandler = (name) => {
-    // dispatch(removefromWatchlist(name));
-    // alert(e.name);
-    return;
-  };
+  // const stock = useSelector((state) => state.user.watchList);
+  // console.log(stock);
+  // const dispatch = useDispatch();
+  // const removeHandler = (name) => {
+  //   // dispatch(removefromWatchlist(name));
+  //   // alert(e.name);
+  //   return;
+  // };
 
   return (
     <div className="max-w-[1024px] mx-auto">
-      <h1 className="p-4 text-lg text-center text-green-800 md:text-xl lg:text-2xl drop-shadow">
+      {/* `<h1 className="p-4 text-lg text-center text-green-800 md:text-xl lg:text-2xl drop-shadow">
         Watch List
       </h1>
       <div>
@@ -32,7 +32,7 @@ const Watchlist = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div>` */}
     </div>
   );
 };

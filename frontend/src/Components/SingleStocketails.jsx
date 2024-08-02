@@ -10,25 +10,14 @@ import {
   MdBarChart,
 } from "react-icons/md"; //down
 import { FaRupeeSign } from "react-icons/fa"; //rupee
-import { useSelector, useDispatch } from "react-redux";
-import { addToWatchlist } from "../Redux/UserSlice";
 
 const SingleStocketails = (props) => {
   const { id } = useParams() || "";
   const stock = props?.stock || data.find((el) => el.symbol === id);
-  const { isLoggedIn, watchList } = useSelector((state) => state.user) || false;
-  const dispatch = useDispatch();
+  const { isLoggedIn, watchList } = false;
 
   const addTowatchListHandler = (e) => {
     e.preventDefault();
-    const symbol = stock.symbol;
-    if (watchList.some((el) => el.symbol === symbol)) {
-      alert("Stock already  Added");
-      return;
-    }
-
-    dispatch(addToWatchlist(stock));
-    alert("Added");
   };
   return (
     <div>

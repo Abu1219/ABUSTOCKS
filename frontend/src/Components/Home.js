@@ -3,12 +3,11 @@ import SearchBar from "./Utility/SearchBar";
 import data from "./stocks.json";
 import { useNavigate } from "react-router-dom";
 import Filter from "./Utility/Filter";
-import { UseSelector, useSelector } from "react-redux";
 
 const Home = () => {
   const navigate = useNavigate();
   const [filterBy, setFilterBy] = useState("");
-  const loginUser = useSelector((state) => state.user);
+  const loginUser = "";
   const fillterHandler = (e) => {
     setFilterBy(e);
   };
@@ -17,16 +16,6 @@ const Home = () => {
       <SearchBar />
 
       <div className="w-[95%] lg:w-[98%]  mx-auto  ">
-        {/* <div className="flex text-sm ">
-          <p>Result PerPage</p>
-          <select>
-            <option>5</option>
-            <option>10</option>
-            <option>15</option>
-            <option>25</option>
-            <option>all</option>
-          </select>
-        </div> */}
         <div>
           <Filter filter={fillterHandler} />
         </div>

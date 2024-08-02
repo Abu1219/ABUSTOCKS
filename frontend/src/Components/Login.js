@@ -1,58 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { login } from "../Redux/UserSlice";
-import { UseDispatch, useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../Redux/slices/userApiSlice";
+import { setCredentials } from "../Redux/slices/authSlice";
+import { toast } from "react-toastify";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setshowPassword] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
-  const [data, setData] = useState({
-    userName: "",
-    password: "",
-  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const changeHandler = (e) => {
-    setError(null);
-    setStatus(null);
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    setStatus("Login ...");
-    //check invalid data
-    if (!data.userName || !data.password) {
-      return setError("Invalid Fields");
+
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
 
     //connect to api
-    try {
-      const res = await axios.post("http://localhost:5000/api/login", data);
-      const status = res.status;
-      if (status === 200) {
-        setStatus(res.data.message);
-        const userData = res.data.data;
-        dispatch(login(userData));
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      } else {
-        setError(res.data.message);
-      }
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message);
-      } else {
-        setError("An unexpected error occurred");
-      }
-    }
-
-    setData({ userName: "", password: "" });
   };
   return (
     <div className="w-[100vw] h-[100vh] bg-green-500 flex  justify-center items-center -mt-4 cursor-pointer">
@@ -71,18 +54,18 @@ const Login = () => {
           <input
             className="w-[90%] mx-2 border-b-2 border-green-500 text-lg md:text-2xl p-1 my-2 outline-none  "
             placeholder="Username"
-            name="userName"
-            value={data.userName}
-            onChange={changeHandler}
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <div className="flex items-center border-b-2 w-[90%] border-green-500 justify-between">
             <input
               className="p-1 mx-2 my-2 text-lg outline-none md:text-2xl md:mt-4"
               placeholder="Password"
               name="password"
-              value={data.password}
+              value={password}
               type={showPassword ? "text" : "password"}
-              onChange={changeHandler}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             {showPassword && (

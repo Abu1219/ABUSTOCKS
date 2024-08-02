@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { BsMenuButtonWide, BsMenuButtonWideFill } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../Redux/UserSlice";
+import { logout } from "../../Redux/slices/authSlice";
+import { useLogoutMutation } from "../../Redux/slices/userApiSlice";
 
 import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [showMobileMenu, setShowMenu] = useState(false);
 
-  const { isLoggedIn, userName } = useSelector((state) => state.user);
+  const { userInfo } = useSelector((state) => state.auth);
+  const [logoutApiCall] = useLogoutMutation();
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
+    logoutApiCall();
     dispatch(logout());
   };
   return (
@@ -35,13 +38,13 @@ const Nav = () => {
               Home
             </Link>
           </div>
-          {isLoggedIn && (
+          {userInfo && (
             <div>
               <Link to="/Watchlist">Watchlist</Link>
             </div>
           )}
           <div className="">
-            {!isLoggedIn && (
+            {!userInfo && (
               <Link
                 to="/Login"
                 onClick={() => setShowMenu(!showMobileMenu)}
@@ -50,7 +53,7 @@ const Nav = () => {
                 Login
               </Link>
             )}
-            {isLoggedIn && (
+            {userInfo && (
               <Link
                 to="/"
                 onClick={() => {
@@ -73,9 +76,7 @@ const Nav = () => {
             className="w-10"
           />
         </Link>
-        <p className="font-semibold text-green-700 uppercase">
-          Know Your Stock
-        </p>
+        <p className="font-semibold text-green-700 uppercase">Stock Fusion</p>
 
         {/* menu for mobile devices */}
         <div className="md:hidden">
@@ -95,12 +96,12 @@ const Nav = () => {
         <div className="max-md:hidden">
           <ul className="flex items-center justify-between space-x-8">
             <Link to="">Home</Link>
-            {isLoggedIn && (
+            {userInfo && (
               <div>
                 <Link to="/Watchlist">Watchlist</Link>
               </div>
             )}
-            {!isLoggedIn ? (
+            {!userInfo ? (
               <Link to="/Login">Login</Link>
             ) : (
               <Link to="/" onClick={logoutHandler}>
