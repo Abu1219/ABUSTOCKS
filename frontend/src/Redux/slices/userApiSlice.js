@@ -16,7 +16,42 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    register: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/register`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/profile`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    addtoWatchList: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/updateWatchList`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    removefromWatchList: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/removeWatchList`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = userApiSlice;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useUpdateProfileMutation,
+  useAddtoWatchListMutation,
+  useRemovefromWatchListMutation,
+} = userApiSlice;

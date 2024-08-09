@@ -7,10 +7,14 @@ import {
   logoutUser,
   userProfile,
   updateProfile,
+  updateWatchList,
+  removeWatchList,
 } from "../controller/userController.js";
 router.route("/login").post(authUser);
 router.route("/register").post(registerUser);
 router.route("/logout").post(logoutUser);
+router.route("/updateWatchList").put(protector, updateWatchList);
+router.route("/removeWatchList").put(protector, removeWatchList);
 router
   .route("/profile")
   .get(protector, userProfile)

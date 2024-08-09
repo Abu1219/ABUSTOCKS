@@ -2,8 +2,13 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import data from "./stocks.json";
 import { AiOutlineStock } from "react-icons/ai";
-// import { RiStockFill } from "react-icons/ri";
 import SimilarStock from "./SimilarStock";
+import { useDispatch, useSelector } from "react-redux";
+import { useAddtoWatchListMutation } from "../Redux/slices/userApiSlice.js";
+import { updateWatchList } from "../Redux/slices/authSlice";
+import { toast } from "react-toastify";
+import { IoIosAddCircle } from "react-icons/io";
+
 import {
   MdKeyboardDoubleArrowDown,
   MdKeyboardDoubleArrowUp,
@@ -14,10 +19,19 @@ import { FaRupeeSign } from "react-icons/fa"; //rupee
 const SingleStocketails = (props) => {
   const { id } = useParams() || "";
   const stock = props?.stock || data.find((el) => el.symbol === id);
-  const { isLoggedIn, watchList } = false;
+  const [addtowatchlist] = useAddtoWatchListMutation();
+  const dispatch = useDispatch();
 
-  const addTowatchListHandler = (e) => {
+  const addTowatchListHandler = async (e) => {
     e.preventDefault();
+    try {
+      const res = await addtowatchlist(stock).unwrap();
+      console.log(res);
+      dispatch(updateWatchList(res));
+      toast.success("added");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
   return (
     <div>
@@ -38,8 +52,16 @@ const SingleStocketails = (props) => {
         <div className="flex items-center justify-between ">
           <div className="flex items-center space-x-2">
             <AiOutlineStock className="text-green-700" />
-            <p>PE: {Math.round(stock.PEratio)}</p>
+            <p>PE : {Math.round(stock.PEratio)}</p>
           </div>
+          <button
+            className="flex items-center p-2 duration-150 bg-green-300 rounded max-md:text-xs hover:bg-green-500 hover:text-white active:scale-95"
+            onClick={addTowatchListHandler}
+            title="add to watchlist"
+          >
+            <IoIosAddCircle size={25} />
+            watchlist
+          </button>
           <div className="flex items-center space-x-2">
             <MdBarChart className="text-green-700" />
             <p>{stock.weightage}</p>
@@ -63,16 +85,6 @@ const SingleStocketails = (props) => {
           </div>
         </div>
         {/* option  */}
-        <div className="flex items-center justify-center m-2">
-          {isLoggedIn && (
-            <button
-              className="p-1 text-green-100 bg-green-600 rounded"
-              onClick={addTowatchListHandler}
-            >
-              Add to Watchlist
-            </button>
-          )}
-        </div>
       </div>
       <div>
         <SimilarStock sector={stock.sector} stockName={stock.name} />

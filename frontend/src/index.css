@@ -5,3 +5,6 @@
 .tab:nth-child(2n) {
   background-color: rgb(226 232 240);
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}

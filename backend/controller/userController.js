@@ -28,7 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    watchList,
+    watchList: watchList || [],
   });
   // response with user data created
   if (user) {
@@ -48,7 +48,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(email, password);
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
@@ -56,6 +55,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      watchList: user.watchList,
     });
   } else {
     res.status(401);
@@ -119,4 +119,51 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, logoutUser, userProfile, updateProfile };
+//@desc updateWatchlist
+//@route PUT/api/users/watchList
+//@acess  private
+
+const updateWatchList = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  console.log(req.body);
+
+  if (user) {
+    const alreadyAdded = user.watchList.some(
+      (item) => item.symbol === req.body.symbol
+    );
+    if (!alreadyAdded) {
+      user.watchList.push(req.body);
+      const updatedUser = await user.save();
+      res.json(updatedUser.watchList);
+    } else {
+      res.status(400);
+      throw new Error("Already Added");
+    }
+  } else {
+    res.status(404);
+    throw new Error("User not Found");
+  }
+});
+const removeWatchList = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.watchList = user.watchList.filter(
+      (el) => el.symbol !== req.body.symbol
+    );
+    const updatedUser = await user.save();
+    res.json(updatedUser.watchList);
+  } else {
+    res.status(404);
+    throw new Error("User not Found");
+  }
+});
+export {
+  authUser,
+  registerUser,
+  logoutUser,
+  userProfile,
+  updateProfile,
+  updateWatchList,
+  removeWatchList,
+};
