@@ -10,9 +10,12 @@ import Register from "./Components/Register";
 import Watchlist from "./Components/Watchlist";
 import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/Utility/PrivateRoute";
-import useAuthTimer from "./hooks/useAuthTimer";
+
+import useCheckAuth from "./hooks/useCheckAuth";
+
 function App() {
-  useAuthTimer(60 * 60 * 1000);
+  useCheckAuth();
+
   return (
     <div className="mx-auto bg-white/20 ">
       <Nav />

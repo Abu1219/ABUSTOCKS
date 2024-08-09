@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 const generateToken = (res, userId) => {
   // decalare token
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "1hour",
   });
   res.cookie("jwt", token, {
     httpOnly: true,

@@ -4,10 +4,12 @@ import { logout } from "../Redux/slices/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const useAuthTimer = (expriytime) => {
+const useAuthTimer = (isAuthenticated, expriytime) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+    console.log("timer statreted");
     const timer = setTimeout(() => {
       dispatch(logout());
       toast.warn("Token expries klindly login again", {
@@ -15,6 +17,6 @@ const useAuthTimer = (expriytime) => {
       });
     }, expriytime);
     return () => clearTimeout(timer);
-  }, [dispatch, expriytime]);
+  }, [dispatch, expriytime, isAuthenticated]);
 };
 export default useAuthTimer;

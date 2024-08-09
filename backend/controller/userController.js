@@ -62,7 +62,14 @@ const authUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid email/password");
   }
 });
-
+const checkAuthStatus = asyncHandler(async (req, res) => {
+  if (req.user) {
+    res.status(200).json({ user: req.user }); // Send the user data if authenticated
+  } else {
+    res.status(402);
+    throw new Error("not token");
+  }
+});
 //@desc logout
 //@route POST/api/users/logout
 //@acess public
@@ -160,6 +167,7 @@ const removeWatchList = asyncHandler(async (req, res) => {
 });
 export {
   authUser,
+  checkAuthStatus,
   registerUser,
   logoutUser,
   userProfile,

@@ -3,6 +3,7 @@ import { protector } from "../middleware/authMiddleware.js";
 const router = express.Router();
 import {
   authUser,
+  checkAuthStatus,
   registerUser,
   logoutUser,
   userProfile,
@@ -11,6 +12,7 @@ import {
   removeWatchList,
 } from "../controller/userController.js";
 router.route("/login").post(authUser);
+router.route("/check").get(protector, checkAuthStatus);
 router.route("/register").post(registerUser);
 router.route("/logout").post(logoutUser);
 router.route("/updateWatchList").put(protector, updateWatchList);
