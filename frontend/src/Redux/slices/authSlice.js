@@ -4,6 +4,7 @@ const initialState = {
   userInfo: localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null,
+  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -12,7 +13,9 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
+      state.isAuthenticated = true;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
+      localStorage.setItem("isAuthenticated", true);
     },
     updateWatchList: (state, action) => {
       state.userInfo.watchList = action.payload;
@@ -20,7 +23,9 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.userInfo = null;
+      state.isAuthenticated = false;
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("isAuthenticated");
     },
   },
 });
